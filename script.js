@@ -17,15 +17,24 @@ const Gameboard = (function() {
 
         board[row][col] = marker;
     }
+    const printBoard = () => {
+        for(row of board) {
+            console.log(row);
+        }
+    }
 
     return {
         getBoard,
         updateBoard,
+        printBoard,
         MARKER_P1,
         MARKER_P2
     }
 })();
 
-console.log(Gameboard.getBoard());
-console.log(Gameboard.updateBoard(Gameboard.MARKER_P1, 2, 1));
-console.log(Gameboard.getBoard());
+Gameboard.printBoard();
+Gameboard.updateBoard(Gameboard.MARKER_P1, 0, 1);
+Gameboard.updateBoard(Gameboard.MARKER_P1, 1, 1);
+Gameboard.updateBoard(Gameboard.MARKER_P1, 2, 1);
+console.log("\n");
+Gameboard.printBoard();
