@@ -5,7 +5,10 @@ const Gameboard = (function() {
     const COLUMNS = 3;
     const ROWS = 3;
 
-    const board = Array(ROWS).fill( Array(COLUMNS).fill(AIR) );
+    const board = [];
+    for(let r=0; r < ROWS; r++) {
+        board[r] = new Array(COLUMNS).fill(0);
+    }
 
     const getBoard = () => board;
     const updateBoard = (marker, row, col) => {
