@@ -2,8 +2,9 @@ const Gameboard = (function() {
     const AIR = 0;
     const MARKER_P1 = 1;
     const MARKER_P2 = 2;
-    const COLUMNS = 3;
-    const ROWS = 3;
+    const SIZE = 3;
+    const COLUMNS = SIZE;
+    const ROWS = SIZE;
 
     const board = [];
     for(let r=0; r < ROWS; r++) {
@@ -31,6 +32,7 @@ const Gameboard = (function() {
         MARKER_P2,
         COLUMNS,
         ROWS,
+        SIZE,
     }
 })();
 
@@ -73,14 +75,57 @@ const GameController = (function() {
                 console.log(`Found a winner at row ${r + 1}`);
             }
         }
+
+        // Diagonal check
+        // -- Topleft to Bottomright
+        (
+            () => {
+                let pointer = 0;
+                let matches = 0;
+                while(pointer < Gameboard.SIZE) {
+                    if (board[pointer][pointer] === currentMarker)
+                        matches++;
+                    else
+                        break;
+
+                    pointer++;
+                }
+
+                if (matches === MUST_MATCH)
+                    console.log("Winner at diagonal topleft to bottomright");
+            }
+        )();
+        
+        // -- Topright to bottomleft
+        (
+            () => {
+                let pointer = 0;
+                let matches = 0;
+                while(pointer < Gameboard.SIZE) {
+                    const col = (Gameboard.SIZE - 1) - pointer;
+
+                    if (board[pointer][col] === currentMarker)
+                        matches++;
+                    else
+                        break;
+
+                    pointer++;
+                }
+
+                console.log(matches);
+
+                if (matches === MUST_MATCH)
+                    console.log("Winner at diagonal topright to bottomleft");
+            }
+        )();
     }
     const runGame = () => {
         Gameboard.printBoard();
         Gameboard.updateBoard(Gameboard.MARKER_P1, 2, 0);
         // Gameboard.updateBoard(Gameboard.MARKER_P2, 0, 2);
-        Gameboard.updateBoard(Gameboard.MARKER_P1, 2, 1);
+        Gameboard.updateBoard(Gameboard.MARKER_P1, 1, 1);
         // Gameboard.updateBoard(Gameboard.MARKER_P2, 0, 0);
-        Gameboard.updateBoard(Gameboard.MARKER_P1, 2, 2);
+        Gameboard.updateBoard(Gameboard.MARKER_P1, 0, 2);
         console.log("\n");
         Gameboard.printBoard();
         checkWinner(Gameboard.getBoard(), currentMarker);
