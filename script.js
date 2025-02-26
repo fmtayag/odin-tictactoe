@@ -121,6 +121,17 @@ const GameController = (function () {
         return null;
     }
 
+    const hasFreeSpace = () => {
+        for(const col of Gameboard.getBoard()) {
+            if(col.includes(Gameboard.AIR)) 
+                return true;
+            else
+                continue;
+        }
+
+        return false;
+    }
+
     const switchMarker = () => {
         currentMarker = currentMarker === Gameboard.MARKER_P1 
             ? Gameboard.MARKER_P2
@@ -151,6 +162,10 @@ const GameController = (function () {
                     ? console.log("Winner is Player 1")
                     : console.log("Winner is Player 2");
             }
+
+            hasFreeSpace()
+                ? console.log("Has free space")
+                : console.log("No more free space");
             switchMarker();
         }
     }
