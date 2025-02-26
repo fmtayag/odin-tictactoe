@@ -132,20 +132,26 @@ const GameController = (function () {
             Gameboard.updateBoard(currentMarker, row, col);
             console.log("\n");
             Gameboard.printBoard();
-            switchMarker();
+
+            return true;
         }
         else {
             console.log("Can't place there!");
+            return false;
         }
     };
 
     const play = (row, col) => {
-        placeMarker(row, col);
-        let winner = checkWinner(Gameboard.getBoard(), currentMarker);
-        if(winner !== null) {
-            currentMarker === Gameboard.MARKER_P1 
-                ? console.log("Winner is Player 1")
-                : console.log("Winner is Player 2");
+        const isValidMove = placeMarker(row, col);
+
+        if(isValidMove) {
+            let winner = checkWinner(Gameboard.getBoard(), currentMarker);
+            if(winner !== null) {
+                currentMarker === Gameboard.MARKER_P1 
+                    ? console.log("Winner is Player 1")
+                    : console.log("Winner is Player 2");
+            }
+            switchMarker();
         }
     }
 
