@@ -28,6 +28,7 @@ const Gameboard = (function () {
         getBoard,
         updateBoard,
         printBoard,
+        AIR,
         MARKER_P1,
         MARKER_P2,
         COLUMNS,
@@ -119,22 +120,43 @@ const GameController = (function () {
 
         return null;
     }
-    const runGame = () => {
-        Gameboard.printBoard();
-        Gameboard.updateBoard(Gameboard.MARKER_P1, 2, 0);
-        Gameboard.updateBoard(Gameboard.MARKER_P2, 0, 2);
-        Gameboard.updateBoard(Gameboard.MARKER_P1, 1, 1);
-        Gameboard.updateBoard(Gameboard.MARKER_P2, 0, 0);
-        Gameboard.updateBoard(Gameboard.MARKER_P1, 0, 2);
-        console.log("\n");
-        Gameboard.printBoard();
+
+    const switchMarker = () => {
+        currentMarker = currentMarker === Gameboard.MARKER_P1 
+            ? Gameboard.MARKER_P2
+            : Gameboard.MARKER_P1;
+    }
+
+    const placeMarker = (row, col) => {
+        if(Gameboard.getBoard()[row][col] === Gameboard.AIR) {
+            Gameboard.updateBoard(currentMarker, row, col);
+            console.log("\n");
+            Gameboard.printBoard();
+        }
+        else {
+            console.log("Can't place there!");
+        }
+    };
+
+    const play = (row, col) => {
+        placeMarker(row, col);
         let winner = checkWinner(Gameboard.getBoard(), currentMarker);
-        console.log(winner);
         if(winner !== null) {
             currentMarker === Gameboard.MARKER_P1 
                 ? console.log("Winner is Player 1")
                 : console.log("Winner is Player 2");
         }
+        switchMarker();
+    }
+
+    const runGame = () => {
+        Gameboard.printBoard();
+        play(2, 0);
+        play(0, 1);
+        play(1, 1);
+        play(0, 0);
+        play(0, 2);
+        
     };
 
     return {
