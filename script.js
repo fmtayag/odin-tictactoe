@@ -166,7 +166,7 @@ const GameController = (function () {
 
 const DOMHandler = (function () {
 
-    const handle = () => {
+    const createGrid = () => {
         const container = document.querySelector("#board");
 
         for(let r=0; r < Gameboard.ROWS; r++) {
@@ -182,7 +182,7 @@ const DOMHandler = (function () {
     }
 
     return {
-        handle,
+        handle: createGrid,
     }
 })();
 
