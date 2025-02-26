@@ -39,7 +39,6 @@ const Gameboard = (function () {
 const GameController = (function () {
     const MUST_MATCH = 3;
     let currentMarker = Gameboard.MARKER_P1;
-    let winner = null;
 
     const checkWinner = (board, currentMarker) => {
         // Vertical check
@@ -56,6 +55,7 @@ const GameController = (function () {
 
             if (matches === MUST_MATCH) {
                 console.log(`Found a winner at column ${c + 1}`);
+                return currentMarker;
             }
         }
 
@@ -73,62 +73,68 @@ const GameController = (function () {
 
             if (matches === MUST_MATCH) {
                 console.log(`Found a winner at row ${r + 1}`);
+                return currentMarker;
             }
         }
 
         // Diagonal check
         // -- Topleft to Bottomright
-        (
-            () => {
-                let pointer = 0;
-                let matches = 0;
-                while (pointer < Gameboard.SIZE) {
-                    if (board[pointer][pointer] === currentMarker)
-                        matches++;
-                    else
-                        break;
+        let pointer = 0;
+        let matches = 0;
+        while (pointer < Gameboard.SIZE) {
+            if (board[pointer][pointer] === currentMarker)
+                matches++;
+            else
+                break;
 
-                    pointer++;
-                }
+            pointer++;
+        }
 
-                if (matches === MUST_MATCH)
-                    console.log("Winner at diagonal topleft to bottomright");
-            }
-        )();
+        if (matches === MUST_MATCH) {
+            console.log("Winner at diagonal topleft to bottomright");  
+            return currentMarker;
+        }
 
         // -- Topright to bottomleft
-        (
-            () => {
-                let pointer = 0;
-                let matches = 0;
-                while (pointer < Gameboard.SIZE) {
-                    const col = (Gameboard.SIZE - 1) - pointer;
+        pointer = 0;
+        matches = 0;
+        while (pointer < Gameboard.SIZE) {
+            const col = (Gameboard.SIZE - 1) - pointer;
 
-                    if (board[pointer][col] === currentMarker)
-                        matches++;
-                    else
-                        break;
+            if (board[pointer][col] === currentMarker)
+                matches++;
+            else
+                break;
 
-                    pointer++;
-                }
+            pointer++;
+        }
 
-                console.log(matches);
+        console.log(matches);
 
-                if (matches === MUST_MATCH)
-                    console.log("Winner at diagonal topright to bottomleft");
-            }
-        )();
+        if (matches === MUST_MATCH) {
+            console.log("Winner at diagonal topright to bottomleft");
+            console.log(currentMarker);
+            return currentMarker;
+        }
+
+        return null;
     }
     const runGame = () => {
         Gameboard.printBoard();
         Gameboard.updateBoard(Gameboard.MARKER_P1, 2, 0);
-        // Gameboard.updateBoard(Gameboard.MARKER_P2, 0, 2);
+        Gameboard.updateBoard(Gameboard.MARKER_P2, 0, 2);
         Gameboard.updateBoard(Gameboard.MARKER_P1, 1, 1);
-        // Gameboard.updateBoard(Gameboard.MARKER_P2, 0, 0);
+        Gameboard.updateBoard(Gameboard.MARKER_P2, 0, 0);
         Gameboard.updateBoard(Gameboard.MARKER_P1, 0, 2);
         console.log("\n");
         Gameboard.printBoard();
-        checkWinner(Gameboard.getBoard(), currentMarker);
+        let winner = checkWinner(Gameboard.getBoard(), currentMarker);
+        console.log(winner);
+        if(winner !== null) {
+            currentMarker === Gameboard.MARKER_P1 
+                ? console.log("Winner is Player 1")
+                : console.log("Winner is Player 2");
+        }
     };
 
     return {
