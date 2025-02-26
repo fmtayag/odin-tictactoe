@@ -23,11 +23,18 @@ const Gameboard = (function () {
             console.log(row);
         }
     }
+    const resetBoard = () => {
+        for(col of board) {
+            for(cell of col) 
+                cell = AIR;
+        }
+    }
 
     return {
         getBoard,
         updateBoard,
         printBoard,
+        resetBoard,
         AIR,
         MARKER_P1,
         MARKER_P2,
@@ -40,6 +47,11 @@ const Gameboard = (function () {
 const GameController = (function () {
     const MUST_MATCH = 3;
     let currentMarker = Gameboard.MARKER_P1;
+    const ST_PLAY = 0;
+    const ST_HASTIE = 1;
+    const ST_HASWINNER = 2;
+    let status = ST_PLAY;
+    let winner = null;
 
     const checkWinner = (board, currentMarker) => {
         // Vertical check
@@ -153,21 +165,44 @@ const GameController = (function () {
     };
 
     const play = (row, col) => {
-        const isValidMove = placeMarker(row, col);
+        if(status === ST_PLAY) {
+            const isValidMove = placeMarker(row, col);
 
-        if(isValidMove) {
-            let winner = checkWinner(Gameboard.getBoard(), currentMarker);
-            if(winner !== null) {
-                currentMarker === Gameboard.MARKER_P1 
-                    ? console.log("Winner is Player 1")
-                    : console.log("Winner is Player 2");
+            if(isValidMove) {
+                let winner = checkWinner(Gameboard.getBoard(), currentMarker);
+                if(winner !== null) {
+                    currentMarker === Gameboard.MARKER_P1 
+                        ? console.log("Winner is Player 1")
+                        : console.log("Winner is Player 2");
+
+                    status = ST_HASWINNER;
+                    winner = currentMarker;
+                }
+                
+                hasFreeSpace()
+                    ? console.log("Has free space")
+                    : () => {
+                        console.log("No more free space");
+                        status = ST_HASTIE;
+                    };
+
+                switchMarker();
             }
-
-            hasFreeSpace()
-                ? console.log("Has free space")
-                : console.log("No more free space");
-            switchMarker();
         }
+    }
+
+    const reset = () => {
+        winner = null;
+        status = ST_PLAY;
+        Gameboard.resetBoard();
+    }
+
+    const getStatus = () => {
+        return status;
+    }
+
+    const getWinner = () => {
+        return winner;
     }
 
     const runGame = () => {
@@ -183,6 +218,8 @@ const GameController = (function () {
     return {
         runGame,
         play,
+        getStatus,
+        getWinner,
     }
 })();
 
