@@ -192,6 +192,7 @@ const GameController = (function () {
     const reset = () => {
         winner = null;
         status = ST_PLAY;
+        currentMarker = Gameboard.MARKER_P1;
         Gameboard.resetBoard();
     }
 
@@ -207,6 +208,7 @@ const GameController = (function () {
         play,
         getStatus,
         getWinner,
+        reset,
         ST_PLAY,
         ST_HASTIE,
         ST_HASWINNER,
@@ -226,11 +228,14 @@ const DOMHandler = (function () {
             case GameController.ST_PLAY:
                 break; 
             case GameController.ST_HASTIE:
-                Gameboard.resetBoard();
+                // TODO: Show the button for reset
+                GameController.reset();
                 reflectGrid();
                 break;
             case GameController.ST_HASWINNER:
-                Gameboard.resetBoard();
+                // TODO: Show the button for reset
+                // TODO: Display the game winner
+                GameController.reset();
                 reflectGrid();
                 break;
         }
