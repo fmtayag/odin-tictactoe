@@ -161,13 +161,16 @@ const GameController = (function () {
 
     return {
         runGame,
+        play,
     }
 })();
 
 const DOMHandler = (function () {
+    const P1_TEXT_REPR = "X";
+    const P2_TEXT_REPR = "O";
+    const container = document.querySelector("#board");
 
     const createGrid = () => {
-        const container = document.querySelector("#board");
 
         for(let r=0; r < Gameboard.ROWS; r++) {
             for(let c=0; c< Gameboard.COLUMNS; c++) {
@@ -179,12 +182,35 @@ const DOMHandler = (function () {
                 container.append(cell);
             }
         }
+
+        container.addEventListener("click", (e) => {
+            const target = e.target;
+            const row = target.dataset.row;
+            const col = target.dataset.col;
+
+            GameController.play(row, col);
+            reflectGrid();
+        });
+    }
+
+    const reflectGrid = () => {
+        for(const cell of container.children) {
+            const row = cell.dataset.row;
+            const col = cell.dataset.col;
+            
+            if(Gameboard.getBoard()[row][col] === Gameboard.MARKER_P1) {
+                cell.textContent = P1_TEXT_REPR;
+            }
+            else if(Gameboard.getBoard()[row][col] === Gameboard.MARKER_P2) {
+                cell.textContent = P2_TEXT_REPR;
+            }
+        }
     }
 
     return {
-        handle: createGrid,
+        createGrid,
     }
 })();
 
 // GameController.runGame();
-DOMHandler.handle();
+DOMHandler.createGrid();
