@@ -5,6 +5,7 @@
 }
 
 #board {
+    width: fit-content;
     display: grid;
     grid-template-rows: repeat(3, 100px);
     grid-template-columns: repeat(3, 100px);
@@ -18,5 +19,5 @@
 }
 
 .cell > p {
-    font-size: 2rem;
+    font-size: 2rem;    
 }

@@ -195,11 +195,17 @@ const DOMHandler = (function () {
 
         container.addEventListener("click", (e) => {
             const target = e.target;
-            const row = target.dataset.row;
-            const col = target.dataset.col;
+            const isACell = target.classList.contains("cell");
 
-            GameController.play(row, col);
-            reflectGrid();
+            if(isACell) {
+                console.log(e.target);
+                const row = target.dataset.row;
+                const col = target.dataset.col;
+
+                GameController.play(row, col);
+                reflectGrid();
+            }
+            
         });
     }
 
