@@ -172,8 +172,8 @@ const GameController = (function () {
 })();
 
 const DOMHandler = (function () {
-    const P1_TEXT_REPR = "X";
-    const P2_TEXT_REPR = "O";
+    const P1_TEXT_REPR = "close"; // Based on Google Material Icons
+    const P2_TEXT_REPR = "circle";
     const container = document.querySelector("#board");
 
     const createGrid = () => {
@@ -184,6 +184,10 @@ const DOMHandler = (function () {
                 cell.classList.add("cell");
                 cell.dataset.row = `${r}`;
                 cell.dataset.col = `${c}`;
+
+                const para = document.createElement("p");
+                para.classList.add("material-symbols-outlined");
+                cell.append(para);
 
                 container.append(cell);
             }
@@ -203,12 +207,13 @@ const DOMHandler = (function () {
         for(const cell of container.children    ) {
             const row = cell.dataset.row;
             const col = cell.dataset.col;
+            const para = cell.querySelector("p");
             
             if(Gameboard.getBoard()[row][col] === Gameboard.MARKER_P1) {
-                cell.textContent = P1_TEXT_REPR;
+                para.textContent = P1_TEXT_REPR;
             }
             else if(Gameboard.getBoard()[row][col] === Gameboard.MARKER_P2) {
-                cell.textContent = P2_TEXT_REPR;
+                para.textContent = P2_TEXT_REPR;
             }
         }
     }
