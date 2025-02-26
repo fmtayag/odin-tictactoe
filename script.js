@@ -132,6 +132,7 @@ const GameController = (function () {
             Gameboard.updateBoard(currentMarker, row, col);
             console.log("\n");
             Gameboard.printBoard();
+            switchMarker();
         }
         else {
             console.log("Can't place there!");
@@ -146,7 +147,6 @@ const GameController = (function () {
                 ? console.log("Winner is Player 1")
                 : console.log("Winner is Player 2");
         }
-        switchMarker();
     }
 
     const runGame = () => {
@@ -194,7 +194,7 @@ const DOMHandler = (function () {
     }
 
     const reflectGrid = () => {
-        for(const cell of container.children) {
+        for(const cell of container.children    ) {
             const row = cell.dataset.row;
             const col = cell.dataset.col;
             
