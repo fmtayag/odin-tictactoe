@@ -164,4 +164,27 @@ const GameController = (function () {
     }
 })();
 
-GameController.runGame();
+const DOMHandler = (function () {
+
+    const handle = () => {
+        const container = document.querySelector("#board");
+
+        for(let r=0; r < Gameboard.ROWS; r++) {
+            for(let c=0; c< Gameboard.COLUMNS; c++) {
+                const cell = document.createElement("div");
+                cell.classList.add("cell");
+                cell.dataset.row = `${r}`;
+                cell.dataset.col = `${c}`;
+
+                container.append(cell);
+            }
+        }
+    }
+
+    return {
+        handle,
+    }
+})();
+
+// GameController.runGame();
+DOMHandler.handle();
