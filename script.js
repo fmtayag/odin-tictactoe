@@ -24,9 +24,10 @@ const Gameboard = (function () {
         }
     }
     const resetBoard = () => {
-        for(col of board) {
-            for(cell of col) 
-                cell = AIR;
+        for(let r=0; r < ROWS; r++) {
+            for(let c=0; c < COLUMNS; c++) {
+                updateBoard(AIR, r, c);
+            }
         }
     }
 
@@ -47,9 +48,9 @@ const Gameboard = (function () {
 const GameController = (function () {
     const MUST_MATCH = 3;
     let currentMarker = Gameboard.MARKER_P1;
-    const ST_PLAY = 0;
-    const ST_HASTIE = 1;
-    const ST_HASWINNER = 2;
+    const ST_PLAY = "play";
+    const ST_HASTIE = "has tie";
+    const ST_HASWINNER = "has winner";
     let status = ST_PLAY;
     let winner = null;
 
@@ -181,10 +182,7 @@ const GameController = (function () {
                 
                 hasFreeSpace()
                     ? console.log("Has free space")
-                    : () => {
-                        console.log("No more free space");
-                        status = ST_HASTIE;
-                    };
+                    : status = ST_HASTIE;
 
                 switchMarker();
             }
@@ -205,21 +203,13 @@ const GameController = (function () {
         return winner;
     }
 
-    const runGame = () => {
-        Gameboard.printBoard();
-        play(2, 0);
-        play(0, 1);
-        play(1, 1);
-        play(0, 0);
-        play(0, 2);
-        
-    };
-
     return {
-        runGame,
         play,
         getStatus,
         getWinner,
+        ST_PLAY,
+        ST_HASTIE,
+        ST_HASWINNER,
     }
 })();
 
@@ -227,6 +217,24 @@ const DOMHandler = (function () {
     const P1_TEXT_REPR = "close"; // Based on Google Material Icons
     const P2_TEXT_REPR = "circle";
     const container = document.querySelector("#board");
+
+    const listenToGameController = () => {
+        let gcStatus = GameController.getStatus();
+        console.log("Listening");
+
+        switch(gcStatus) {
+            case GameController.ST_PLAY:
+                break; 
+            case GameController.ST_HASTIE:
+                Gameboard.resetBoard();
+                reflectGrid();
+                break;
+            case GameController.ST_HASWINNER:
+                Gameboard.resetBoard();
+                reflectGrid();
+                break;
+        }
+    }
 
     const createGrid = () => {
 
@@ -256,6 +264,7 @@ const DOMHandler = (function () {
 
                 GameController.play(row, col);
                 reflectGrid();
+                listenToGameController();
             }
             
         });
@@ -272,6 +281,9 @@ const DOMHandler = (function () {
             }
             else if(Gameboard.getBoard()[row][col] === Gameboard.MARKER_P2) {
                 para.textContent = P2_TEXT_REPR;
+            }
+            else {
+                para.textContent = "";
             }
         }
     }
