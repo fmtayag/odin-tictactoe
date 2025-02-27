@@ -246,8 +246,8 @@ const GUIHandler = (function () {
             const startContainer = document.querySelector("#start");
             const gui = document.querySelector("#gui");
 
-            p1Name = textNameP1.value;
-            p2Name = textNameP2.value;
+            p1Name = textNameP1.value !== "" ? textNameP1.value : "Player 1";
+            p2Name = textNameP2.value !== "" ? textNameP1.value : "Player 2";
             labelNameP1.textContent = p1Name;
             labelNameP2.textContent = p2Name;
             startContainer.classList.add("hidden");
