@@ -4,33 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="./styles/form.css">
     <script src="script.js" defer></script>
     <title>Odin Tic-Tac-Toe</title>
 </head>
 <body>
-    <h1>Tic Tac Toe</h1>
-    <div id="start">
-        <form>
-            <label for="p1_name">P1 Name:</label>
-            <input type="text" name="player1_name" id="p1_name">
-            <label for="p2_name">P2 Name:</label>
-            <input type="text" name="player2_name" id="p2_name">
-            <button type="submit">Start!</button>
-        </form>
-    </div>
-    <div id="board">
-
-    </div>
-    <div id="gui" class="hidden">
-        <button type="button" id="reset" class="hidden">Play Again</button>
-        <p id="winner"></p>
-        <p id="nameP1"></p>
-        <p id="scoreP1">0</p>
-        <p id="nameP2"></p>
-        <p id="scoreP2">0</p>
-        <p>Ties</p>
-        <p id="ties">0</p>
+    <div class="container">
+        <div id="start">
+            <h1 class="title margin-btm-med">Tic <span>Tac</span> <span>Toe</span></h1>
+            <form>
+                <label for="p1_name">Who plays<span class="material-symbols-outlined player-1">close</span>?</label>
+                <input type="text" name="player1_name" id="p1_name">
+                <label for="p2_name">Who plays<span class="material-symbols-outlined player-2">circle</span>?</label>
+                <input type="text" name="player2_name" id="p2_name" class="margin-btm-med">
+                <button type="submit">Start!</button>
+            </form>
+        </div>
+        <div id="board" class="hidden">
+        </div>
+        <div id="gui" class="hidden">
+            <button type="button" id="reset" class="hidden">Play Again</button>
+            <p id="winner"></p>
+            <p id="nameP1"></p>
+            <p id="scoreP1">0</p>
+            <p id="nameP2"></p>
+            <p id="scoreP2">0</p>
+            <p>Ties</p>
+            <p id="ties">0</p>
+        </div>
     </div>
 </body>
 </html>

@@ -1,0 +1,93 @@
+#start {
+    width: 400px;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    background-color: var(--foreground-color);
+    padding: 2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    text-align: center;
+    cursor: default;
+
+    & span {
+        display: inline-block;
+    }
+    & span:nth-child(even) {
+        color: var(--accent-2);
+        transform: rotate(5deg); 
+        transition: transform 0.4s;
+    }
+    & span:nth-child(odd) {
+        color: var(--accent-1);
+        transform: rotate(-5deg); 
+        transition: transform 0.4s;
+    }
+    & span:nth-child(even):hover,
+    span:nth-child(odd):hover {
+        transform: rotate(0deg);
+    }
+}
+
+.margin-btm-med {
+    margin-bottom: 2rem;
+}
+
+label {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 8px;
+    position: relative;
+
+    & span {
+        vertical-align: middle;
+        margin-left: 0.25rem;
+    }
+
+    & span.player-1 {
+        color: var(--accent-1);
+    }
+
+    & span.player-2 {
+        color: var(--accent-2);
+    }
+}
+
+input {
+    border: 0;
+    border-radius: calc(var(--border-radius) / 4);
+    /* background-color: var(--background-color); */
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+
+    /* color: var(--txt-primary); */
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+button[type=submit] {
+    box-shadow: var(--box-shadow);
+    width: 30%;
+    align-self: center;
+    padding: 0.5rem;
+    border: 0;
+    background-color: var(--accent-1);
+    border-radius: var(--border-radius);
+
+    color: var(--txt-primary);
+    font-size: 1.25rem;
+    font-weight: bold;
+
+    transform: scale(1);
+    transition: transform 0.25s;
+}
+
+button[type=submit]:hover {
+    cursor: pointer;
+    transform: scale(0.97);
+}
