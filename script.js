@@ -170,21 +170,18 @@ const GameController = (function () {
             const isValidMove = placeMarker(row, col);
 
             if(isValidMove) {
-                let winner = checkWinner(Gameboard.getBoard(), currentMarker);
+                winner = checkWinner(Gameboard.getBoard(), currentMarker);
                 if(winner !== null) {
-                    currentMarker === Gameboard.MARKER_P1 
-                        ? console.log("Winner is Player 1")
-                        : console.log("Winner is Player 2");
-
                     status = ST_HASWINNER;
                     winner = currentMarker;
                 }
-                
-                hasFreeSpace()
+                else {
+                    hasFreeSpace()
                     ? console.log("Has free space")
                     : status = ST_HASTIE;
 
-                switchMarker();
+                    switchMarker();
+                }
             }
         }
     }
@@ -223,15 +220,19 @@ const DOMHandler = (function () {
     const listenToGameController = () => {
         let gcStatus = GameController.getStatus();
         console.log("Listening");
+        const pWinner = document.querySelector("p#winner");
 
         switch(gcStatus) {
             case GameController.ST_PLAY:
                 break; 
             case GameController.ST_HASTIE:
                 showResetButton(true);
+                pWinner.textContent = "Tie!";
                 break;
             case GameController.ST_HASWINNER:
                 showResetButton(true);
+                const theWinner = GameController.getWinner() === Gameboard.MARKER_P1 ? 'X' : 'O';
+                pWinner.textContent = `Winner is ${theWinner}`;
                 break;
         }
     }
@@ -290,11 +291,14 @@ const DOMHandler = (function () {
 
     const createGUI = () => {
         const resetButton = document.querySelector("#reset");
+        const pWinner = document.querySelector("p#winner");
+
         showResetButton(false);
         resetButton.addEventListener("click", (e) => {
             GameController.reset();
             reflectGrid();
             showResetButton(false);
+            pWinner.textContent = "";
         });
     }
 
