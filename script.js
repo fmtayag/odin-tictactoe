@@ -231,7 +231,7 @@ const GameController = (function () {
     }
 })();
 
-const DOMHandler = (function () {
+const GUIHandler = (function () {
     const P1_TEXT_REPR = "close"; // Based on Google Material Icons
     const P2_TEXT_REPR = "circle";
     const container = document.querySelector("#board");
@@ -343,5 +343,5 @@ const DOMHandler = (function () {
     }
 })();
 
-DOMHandler.createGrid();
-DOMHandler.initializeButton();
+GUIHandler.createGrid();
+GUIHandler.initializeButton();
