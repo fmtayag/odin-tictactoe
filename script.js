@@ -74,7 +74,7 @@ const GameController = (function () {
                 }
                 else {
                     hasFreeSpace()
-                    ? console.log("Has free space")
+                    ? null
                     : (() => {
                         status = ST_HASTIE;
                         addScore();
@@ -100,7 +100,6 @@ const GameController = (function () {
             }
 
             if (matches === MUST_MATCH) {
-                console.log(`Found a winner at column ${c + 1}`);
                 return currentMarker;
             }
         }
@@ -118,7 +117,6 @@ const GameController = (function () {
             }
 
             if (matches === MUST_MATCH) {
-                console.log(`Found a winner at row ${r + 1}`);
                 return currentMarker;
             }
         }
@@ -137,7 +135,6 @@ const GameController = (function () {
         }
 
         if (matches === MUST_MATCH) {
-            console.log("Winner at diagonal topleft to bottomright");  
             return currentMarker;
         }
 
@@ -155,11 +152,8 @@ const GameController = (function () {
             pointer++;
         }
 
-        console.log(matches);
 
         if (matches === MUST_MATCH) {
-            console.log("Winner at diagonal topright to bottomleft");
-            console.log(currentMarker);
             return currentMarker;
         }
 
@@ -186,13 +180,11 @@ const GameController = (function () {
     const placeMarker = (row, col) => {
         if(Gameboard.getBoard()[row][col] === Gameboard.AIR) {
             Gameboard.updateBoard(currentMarker, row, col);
-            console.log("\n");
-            Gameboard.printBoard();
+            // Gameboard.printBoard();
 
             return true;
         }
         else {
-            console.log("Can't place there!");
             return false;
         }
     };
@@ -246,7 +238,6 @@ const DOMHandler = (function () {
 
     const listenToGameController = () => {
         let gcStatus = GameController.getStatus();
-        console.log("Listening");
         const pWinner = document.querySelector("p#winner");
 
         switch(gcStatus) {
@@ -299,7 +290,6 @@ const DOMHandler = (function () {
             const isACell = target.classList.contains("cell");
 
             if(isACell) {
-                console.log(e.target);
                 const row = target.dataset.row;
                 const col = target.dataset.col;
 
@@ -354,6 +344,5 @@ const DOMHandler = (function () {
     }
 })();
 
-// GameController.runGame();
 DOMHandler.createGrid();
-DOMHandler.createGUI();
+DOMHandler.createButton();
