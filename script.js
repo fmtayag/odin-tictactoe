@@ -319,9 +319,8 @@ const DOMHandler = (function () {
         }
     }
 
-    const createButton = () => {
+    const initializeButton = () => {
         const resetButton = document.querySelector("#reset");
-        showResetButton(false);
 
         resetButton.addEventListener("click", (e) => {
             GameController.reset();
@@ -340,9 +339,9 @@ const DOMHandler = (function () {
 
     return {
         createGrid,
-        createButton,
+        initializeButton,
     }
 })();
 
 DOMHandler.createGrid();
-DOMHandler.createButton();
+DOMHandler.initializeButton();
