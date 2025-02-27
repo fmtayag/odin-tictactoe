@@ -55,8 +55,8 @@ const GameController = (function () {
     let winner = null;
 
     let scores = {
-        "x": 0,
-        "y": 0,
+        "p1": 0,
+        "p2": 0,
         "ties": 0,
     }
 
@@ -200,7 +200,7 @@ const GameController = (function () {
     const score = () => {
         switch(status) {
             case ST_HASWINNER:
-                winner === Gameboard.MARKER_P1 ? scores["x"]++ : scores["y"]++;
+                winner === Gameboard.MARKER_P1 ? scores["p1"]++ : scores["p2"]++;
                 break;
             case ST_HASTIE:
                 scores["ties"]++;
@@ -268,12 +268,12 @@ const DOMHandler = (function () {
     }
 
     const updateScores = () => {
-        const pScoreX = document.querySelector("p#scoreP1");
-        const pScoreO = document.querySelector("p#scoreP2");
+        const pScoreP1 = document.querySelector("p#scoreP1");
+        const pScoreP2 = document.querySelector("p#scoreP2");
         const pTies = document.querySelector("p#ties");
 
-        pScoreX.textContent = GameController.getScore("x");
-        pScoreO.textContent = GameController.getScore("y");
+        pScoreP1.textContent = GameController.getScore("p1");
+        pScoreP2.textContent = GameController.getScore("p2");
         ties.textContent = GameController.getScore("ties");
     }
 
@@ -329,15 +329,16 @@ const DOMHandler = (function () {
         }
     }
 
-    const createGUI = () => {
+    const createButton = () => {
         const resetButton = document.querySelector("#reset");
-        const pWinner = document.querySelector("p#winner");
-
         showResetButton(false);
+
         resetButton.addEventListener("click", (e) => {
             GameController.reset();
             reflectGrid();
             showResetButton(false);
+
+            const pWinner = document.querySelector("p#winner");
             pWinner.textContent = "";
         });
     }
@@ -349,7 +350,7 @@ const DOMHandler = (function () {
 
     return {
         createGrid,
-        createGUI,
+        createGUI: createButton,
     }
 })();
 
