@@ -228,15 +228,10 @@ const DOMHandler = (function () {
             case GameController.ST_PLAY:
                 break; 
             case GameController.ST_HASTIE:
-                // TODO: Show the button for reset
-                GameController.reset();
-                reflectGrid();
+                showResetButton(true);
                 break;
             case GameController.ST_HASWINNER:
-                // TODO: Show the button for reset
-                // TODO: Display the game winner
-                GameController.reset();
-                reflectGrid();
+                showResetButton(true);
                 break;
         }
     }
@@ -293,10 +288,27 @@ const DOMHandler = (function () {
         }
     }
 
+    const createGUI = () => {
+        const resetButton = document.querySelector("#reset");
+        showResetButton(false);
+        resetButton.addEventListener("click", (e) => {
+            GameController.reset();
+            reflectGrid();
+            showResetButton(false);
+        });
+    }
+
+    const showResetButton = (doShow) => {
+        const resetButton = document.querySelector("#reset");
+        doShow ? resetButton.classList.remove("hidden") : resetButton.classList.add("hidden");
+    }
+
     return {
         createGrid,
+        createGUI,
     }
 })();
 
 // GameController.runGame();
 DOMHandler.createGrid();
+DOMHandler.createGUI();
