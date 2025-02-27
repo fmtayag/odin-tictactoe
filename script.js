@@ -261,20 +261,20 @@ const GUIHandler = (function () {
 
     const listenToGameController = () => {
         let gcStatus = GameController.getStatus();
-        const pWinner = document.querySelector("p#winner");
+        const winnerText = document.querySelector("#winner");
 
         switch (gcStatus) {
             case GameController.ST_PLAY:
                 break;
             case GameController.ST_HASTIE:
                 showResetButton(true);
-                pWinner.textContent = "Tie!";
+                winnerText.textContent = "Tie!";
                 updateScores();
                 break;
             case GameController.ST_HASWINNER:
                 showResetButton(true);
                 const theWinner = GameController.getWinner() === Gameboard.MARKER_P1 ? 'X' : 'O';
-                pWinner.textContent = `Winner is ${theWinner}`;
+                winnerText.textContent = `Winner is ${theWinner}`;
                 updateScores();
                 break;
         }
@@ -352,8 +352,8 @@ const GUIHandler = (function () {
             reflectGrid();
             showResetButton(false);
 
-            const pWinner = document.querySelector("p#winner");
-            pWinner.textContent = "";
+            const winner = document.querySelector("#winner");
+            winner.textContent = "";
 
             clearCellColors();
         });
@@ -369,7 +369,7 @@ const GUIHandler = (function () {
 
     const showResetButton = (doShow) => {
         const resetButton = document.querySelector("#reset");
-        doShow ? resetButton.classList.remove("hidden") : resetButton.classList.add("hidden");
+        doShow ? resetButton.classList.remove("hidden-vis-only") : resetButton.classList.add("hidden-vis-only");
     }
 
     return {

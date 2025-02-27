@@ -6,6 +6,7 @@
     --accent-1: rgb(253, 60, 173);
     --accent-2: #41c0ee;
     --color-1: gray;
+    --color-2: rgb(232, 171, 16);
 
     --text-primary: white;
     --border-radius: 24px;
@@ -37,4 +38,8 @@ body {
     visibility: hidden;
     display: none;
     position: absolute; /* hack fix to allow the form to be centered */
+}
+
+.hidden-vis-only {
+    visibility: hidden;
 }
