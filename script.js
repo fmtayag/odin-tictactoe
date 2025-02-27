@@ -24,8 +24,8 @@ const Gameboard = (function () {
         }
     }
     const resetBoard = () => {
-        for(let r=0; r < ROWS; r++) {
-            for(let c=0; c < COLUMNS; c++) {
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLUMNS; c++) {
                 updateBoard(AIR, r, c);
             }
         }
@@ -61,19 +61,19 @@ const GameController = (function () {
     }
 
     const play = (row, col) => {
-        if(status === ST_PLAY) {
+        if (status === ST_PLAY) {
             const isValidMove = placeMarker(row, col);
 
-            if(isValidMove) {
+            if (isValidMove) {
                 winner = checkWinner(Gameboard.getBoard(), currentMarker);
-                if(winner !== null) {
+                if (winner !== null) {
                     status = ST_HASWINNER;
                     winner = currentMarker;
                     addScore();
-                    
+
                 }
                 else {
-                    if(!hasFreeSpace()) {
+                    if (!hasFreeSpace()) {
                         status = ST_HASTIE;
                         addScore();
                     }
@@ -159,8 +159,8 @@ const GameController = (function () {
     }
 
     const hasFreeSpace = () => {
-        for(const col of Gameboard.getBoard()) {
-            if(col.includes(Gameboard.AIR)) 
+        for (const col of Gameboard.getBoard()) {
+            if (col.includes(Gameboard.AIR))
                 return true;
             else
                 continue;
@@ -170,13 +170,13 @@ const GameController = (function () {
     }
 
     const switchMarker = () => {
-        currentMarker = currentMarker === Gameboard.MARKER_P1 
+        currentMarker = currentMarker === Gameboard.MARKER_P1
             ? Gameboard.MARKER_P2
             : Gameboard.MARKER_P1;
     }
 
     const placeMarker = (row, col) => {
-        if(Gameboard.getBoard()[row][col] === Gameboard.AIR) {
+        if (Gameboard.getBoard()[row][col] === Gameboard.AIR) {
             Gameboard.updateBoard(currentMarker, row, col);
             return true;
         }
@@ -186,7 +186,7 @@ const GameController = (function () {
     };
 
     const addScore = () => {
-        switch(status) {
+        switch (status) {
             case ST_HASWINNER:
                 winner === Gameboard.MARKER_P1 ? scores["p1"]++ : scores["p2"]++;
                 break;
@@ -236,9 +236,9 @@ const GUIHandler = (function () {
         let gcStatus = GameController.getStatus();
         const pWinner = document.querySelector("p#winner");
 
-        switch(gcStatus) {
+        switch (gcStatus) {
             case GameController.ST_PLAY:
-                break; 
+                break;
             case GameController.ST_HASTIE:
                 showResetButton(true);
                 pWinner.textContent = "Tie!";
@@ -266,8 +266,8 @@ const GUIHandler = (function () {
 
     const createGrid = () => {
 
-        for(let r=0; r < Gameboard.ROWS; r++) {
-            for(let c=0; c< Gameboard.COLUMNS; c++) {
+        for (let r = 0; r < Gameboard.ROWS; r++) {
+            for (let c = 0; c < Gameboard.COLUMNS; c++) {
                 const cell = document.createElement("div");
                 cell.classList.add("cell");
                 cell.dataset.row = `${r}`;
@@ -285,7 +285,7 @@ const GUIHandler = (function () {
             const target = e.target;
             const isACell = target.classList.contains("cell");
 
-            if(isACell) {
+            if (isACell) {
                 const row = target.dataset.row;
                 const col = target.dataset.col;
 
@@ -293,20 +293,20 @@ const GUIHandler = (function () {
                 reflectGrid();
                 listenToGameController();
             }
-            
+
         });
     }
 
     const reflectGrid = () => {
-        for(const cell of container.children    ) {
+        for (const cell of container.children) {
             const row = cell.dataset.row;
             const col = cell.dataset.col;
             const para = cell.querySelector("p");
-            
-            if(Gameboard.getBoard()[row][col] === Gameboard.MARKER_P1) {
+
+            if (Gameboard.getBoard()[row][col] === Gameboard.MARKER_P1) {
                 para.textContent = P1_TEXT_REPR;
             }
-            else if(Gameboard.getBoard()[row][col] === Gameboard.MARKER_P2) {
+            else if (Gameboard.getBoard()[row][col] === Gameboard.MARKER_P2) {
                 para.textContent = P2_TEXT_REPR;
             }
             else {
