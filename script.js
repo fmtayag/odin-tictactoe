@@ -232,8 +232,8 @@ const GUIHandler = (function () {
     const P2_TEXT_REPR = "circle";
     const container = document.querySelector("#board");
 
-    let p1Name = "Player 1"; 
-    let p2Name = "Player 2";
+    let p1Name = null; 
+    let p2Name = null;
 
     const initialize = () => {
         const submitBtn = document.querySelector("form>button");
@@ -244,10 +244,10 @@ const GUIHandler = (function () {
             const textNameP1 = document.querySelector("#p1_name"); 
             const textNameP2 = document.querySelector("#p2_name");
             const startContainer = document.querySelector("#start");
-            const gui = document.querySelector("#gui");
+            const gui = document.querySelector("#game");
 
-            p1Name = textNameP1.value;
-            p2Name = textNameP2.value;
+            p1Name = textNameP1.value !== "" ? textNameP1.value : "Player 1";
+            p2Name = textNameP2.value !== "" ? textNameP2.value : "Player 2";
             labelNameP1.textContent = p1Name;
             labelNameP2.textContent = p2Name;
             startContainer.classList.add("hidden");
@@ -380,6 +380,6 @@ const GUIHandler = (function () {
     }
 })();
 
-// GUIHandler.initialize();
-GUIHandler.createGrid();
-GUIHandler.createResetButton();
+GUIHandler.initialize();
+// GUIHandler.createGrid();
+// GUIHandler.createResetButton();
