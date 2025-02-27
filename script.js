@@ -340,7 +340,7 @@ const DOMHandler = (function () {
 
     return {
         createGrid,
-        createGUI: createButton,
+        createButton,
     }
 })();
 
