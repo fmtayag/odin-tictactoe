@@ -60,6 +60,32 @@ const GameController = (function () {
         "ties": 0,
     }
 
+    const play = (row, col) => {
+        if(status === ST_PLAY) {
+            const isValidMove = placeMarker(row, col);
+
+            if(isValidMove) {
+                winner = checkWinner(Gameboard.getBoard(), currentMarker);
+                if(winner !== null) {
+                    status = ST_HASWINNER;
+                    winner = currentMarker;
+                    addScore();
+                    
+                }
+                else {
+                    hasFreeSpace()
+                    ? console.log("Has free space")
+                    : (() => {
+                        status = ST_HASTIE;
+                        addScore();
+                    }) ();
+
+                    switchMarker();
+                }
+            }
+        }
+    }
+
     const checkWinner = (board, currentMarker) => {
         // Vertical check
         for (let c = 0; c < Gameboard.COLUMNS; c++) {
@@ -171,33 +197,7 @@ const GameController = (function () {
         }
     };
 
-    const play = (row, col) => {
-        if(status === ST_PLAY) {
-            const isValidMove = placeMarker(row, col);
-
-            if(isValidMove) {
-                winner = checkWinner(Gameboard.getBoard(), currentMarker);
-                if(winner !== null) {
-                    status = ST_HASWINNER;
-                    winner = currentMarker;
-                    score();
-                    
-                }
-                else {
-                    hasFreeSpace()
-                    ? console.log("Has free space")
-                    : (() => {
-                        status = ST_HASTIE;
-                        score();
-                    }) ();
-
-                    switchMarker();
-                }
-            }
-        }
-    }
-
-    const score = () => {
+    const addScore = () => {
         switch(status) {
             case ST_HASWINNER:
                 winner === Gameboard.MARKER_P1 ? scores["p1"]++ : scores["p2"]++;
@@ -208,15 +208,15 @@ const GameController = (function () {
         }
     }
 
-    const getScore = (query) => {
-        return scores[query];
-    }
-
     const reset = () => {
         winner = null;
         status = ST_PLAY;
         currentMarker = Gameboard.MARKER_P1;
         Gameboard.resetBoard();
+    }
+
+    const getScore = (query) => {
+        return scores[query];
     }
 
     const getStatus = () => {
