@@ -232,6 +232,33 @@ const GUIHandler = (function () {
     const P2_TEXT_REPR = "circle";
     const container = document.querySelector("#board");
 
+    let p1Name = null; 
+    let p2Name = null;
+
+    const initialize = () => {
+        const submitBtn = document.querySelector("form>button");
+
+        submitBtn.addEventListener("click", (e) => {
+            const labelNameP1 = document.querySelector("#nameP1");
+            const labelNameP2 = document.querySelector("#nameP2");
+            const textNameP1 = document.querySelector("#p1_name"); 
+            const textNameP2 = document.querySelector("#p2_name");
+            const startContainer = document.querySelector("#start");
+            const gui = document.querySelector("#gui");
+
+            p1Name = textNameP1.value;
+            p2Name = textNameP2.value;
+            labelNameP1.textContent = p1Name;
+            labelNameP2.textContent = p2Name;
+            startContainer.classList.add("hidden");
+            gui.classList.remove("hidden");
+
+            createGrid();
+            initializeButton();
+            e.preventDefault();
+        });
+    }   
+
     const listenToGameController = () => {
         let gcStatus = GameController.getStatus();
         const pWinner = document.querySelector("p#winner");
@@ -334,10 +361,10 @@ const GUIHandler = (function () {
     }
 
     return {
+        initialize,
         createGrid,
         initializeButton,
     }
 })();
 
-GUIHandler.createGrid();
-GUIHandler.initializeButton();
+GUIHandler.initialize();
