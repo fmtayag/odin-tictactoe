@@ -73,8 +73,6 @@
 
     & #winner {
         justify-self: center;
-        align-self: center;
-        place-self: center;
         position: absolute;
         bottom: 150%;
     }
