@@ -232,8 +232,8 @@ const GUIHandler = (function () {
     const P2_TEXT_REPR = "circle";
     const container = document.querySelector("#board");
 
-    let p1Name = null; 
-    let p2Name = null;
+    let p1Name = "Player 1"; 
+    let p2Name = "Player 2";
 
     const initialize = () => {
         const submitBtn = document.querySelector("form>button");
@@ -246,8 +246,8 @@ const GUIHandler = (function () {
             const startContainer = document.querySelector("#start");
             const gui = document.querySelector("#gui");
 
-            p1Name = textNameP1.value !== "" ? textNameP1.value : "Player 1";
-            p2Name = textNameP2.value !== "" ? textNameP1.value : "Player 2";
+            p1Name = textNameP1.value;
+            p2Name = textNameP2.value;
             labelNameP1.textContent = p1Name;
             labelNameP2.textContent = p2Name;
             startContainer.classList.add("hidden");
@@ -273,8 +273,9 @@ const GUIHandler = (function () {
                 break;
             case GameController.ST_HASWINNER:
                 showResetButton(true);
-                const theWinner = GameController.getWinner() === Gameboard.MARKER_P1 ? 'X' : 'O';
-                winnerText.textContent = `Winner is ${theWinner}`;
+                const winningMarker = GameController.getWinner() === Gameboard.MARKER_P1 ? 'X' : 'O';
+                const winningPlayer = GameController.getWinner() === Gameboard.MARKER_P1 ? p1Name : p2Name;
+                winnerText.textContent = `${winningPlayer} won!`;
                 updateScores();
                 break;
         }
