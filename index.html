@@ -22,17 +22,27 @@
                 <button type="submit">Start!</button>
             </form>
         </div> -->
+        <div id="top">
+            <button type="button" id="reset" class="hidden">Play Again</button>
+            <p id="winner"></p>
+        </div>
         <div id="board">
         </div>
         <div id="gui">
-            <button type="button" id="reset" class="hidden">Play Again</button>
-            <p id="winner"></p>
-            <p id="nameP1"></p>
-            <p id="scoreP1">0</p>
-            <p id="nameP2"></p>
-            <p id="scoreP2">0</p>
-            <p>Ties</p>
-            <p id="ties">0</p>
+            <div id="scoreboard">
+                <div class="score player-1">
+                    <p id="nameP1">Player 1</p>
+                    <p id="scoreP1">0</p>
+                </div>
+                <div class="score ties">
+                    <p>Ties</p>
+                    <p id="ties">0</p>
+                </div>
+                <div class="score player-2">
+                    <p id="nameP2">Player 2</p>
+                    <p id="scoreP2">0</p>
+                </div>
+            </div>
         </div>
     </div>
 </body>
