@@ -20,6 +20,14 @@
     align-items: center;
     border-bottom: 8px solid var(--mid-color);
     border-radius: calc(var(--border-radius) / 2);
+
+    transform: scale(1) rotate(0);
+    transition: transform 0.2s;
+}
+
+.cell:hover {
+    transform: scale(1.025) rotate(3deg);
+    cursor: pointer;
 }
 
 .cell > p {
