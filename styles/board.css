@@ -83,9 +83,15 @@
         background-color: var(--color-2);
         color: white;
         font-weight: bold;
+        width: 100px;
+        justify-self: center;
+
+        transform: scale(1);
+        transition: transform 0.2s;
     }
 
     & button:hover {
         cursor: pointer;
+        transform: scale(0.98);
     }
 }
