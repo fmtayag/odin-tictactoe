@@ -31,8 +31,9 @@
 }
 
 .cell > p {
-    font-size: 3rem;
+    font-size: 80px;
     font-weight: 1000;
+    
 
     &.player-1 {
         color: var(--accent-1);
