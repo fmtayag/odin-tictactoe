@@ -54,6 +54,12 @@ const GameController = (function () {
     let status = ST_PLAY;
     let winner = null;
 
+    let scores = {
+        "x": 0,
+        "y": 0,
+        "ties": 0,
+    }
+
     const checkWinner = (board, currentMarker) => {
         // Vertical check
         for (let c = 0; c < Gameboard.COLUMNS; c++) {
@@ -174,16 +180,36 @@ const GameController = (function () {
                 if(winner !== null) {
                     status = ST_HASWINNER;
                     winner = currentMarker;
+                    score();
+                    
                 }
                 else {
                     hasFreeSpace()
                     ? console.log("Has free space")
-                    : status = ST_HASTIE;
+                    : (() => {
+                        status = ST_HASTIE;
+                        score();
+                    }) ();
 
                     switchMarker();
                 }
             }
         }
+    }
+
+    const score = () => {
+        switch(status) {
+            case ST_HASWINNER:
+                winner === Gameboard.MARKER_P1 ? scores["x"]++ : scores["y"]++;
+                break;
+            case ST_HASTIE:
+                scores["ties"]++;
+                break;
+        }
+    }
+
+    const getScore = (query) => {
+        return scores[query];
     }
 
     const reset = () => {
@@ -205,6 +231,7 @@ const GameController = (function () {
         play,
         getStatus,
         getWinner,
+        getScore,
         reset,
         ST_PLAY,
         ST_HASTIE,
@@ -228,13 +255,26 @@ const DOMHandler = (function () {
             case GameController.ST_HASTIE:
                 showResetButton(true);
                 pWinner.textContent = "Tie!";
+                updateScores();
                 break;
             case GameController.ST_HASWINNER:
                 showResetButton(true);
                 const theWinner = GameController.getWinner() === Gameboard.MARKER_P1 ? 'X' : 'O';
                 pWinner.textContent = `Winner is ${theWinner}`;
+                updateScores();
                 break;
         }
+
+    }
+
+    const updateScores = () => {
+        const pScoreX = document.querySelector("p#scoreP1");
+        const pScoreO = document.querySelector("p#scoreP2");
+        const pTies = document.querySelector("p#ties");
+
+        pScoreX.textContent = GameController.getScore("x");
+        pScoreO.textContent = GameController.getScore("y");
+        ties.textContent = GameController.getScore("ties");
     }
 
     const createGrid = () => {
