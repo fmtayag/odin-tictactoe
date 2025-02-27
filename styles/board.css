@@ -1,0 +1,29 @@
+#board {
+    width: fit-content;
+    display: grid;
+    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(3, 100px);
+    gap: 8px;
+}
+
+.cell {
+    background-color: var(--foreground-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 8px solid var(--mid-color);
+    border-radius: calc(var(--border-radius) / 2);
+}
+
+.cell > p {
+    font-size: 3rem;
+    font-weight: 1000;
+
+    &.player-1 {
+        color: var(--accent-1);
+    }
+    
+    &.player-2 {
+        color: var(--accent-2);
+    }
+}

@@ -1,6 +1,7 @@
 :root {
     /* From: https://colorhunt.co/palette/343434055e6862a388b9d2d2 */
     --background-color: #100223;
+    --mid-color: #040638;
     --foreground-color: #031f3c;
     --accent-1: rgb(253, 60, 173);
     --accent-2: #41c0ee;
@@ -28,24 +29,6 @@ body {
 
     justify-content: center;
     align-items: center;
-}
-
-#board {
-    width: fit-content;
-    display: grid;
-    grid-template-rows: repeat(3, 100px);
-    grid-template-columns: repeat(3, 100px);
-}
-
-.cell {
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.cell > p {
-    font-size: 2rem;    
 }
 
 .hidden {

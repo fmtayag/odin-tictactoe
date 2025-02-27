@@ -254,7 +254,7 @@ const GUIHandler = (function () {
             gui.classList.remove("hidden");
 
             createGrid();
-            initializeButton();
+            createResetButton();
             e.preventDefault();
         });
     }   
@@ -332,9 +332,11 @@ const GUIHandler = (function () {
 
             if (Gameboard.getBoard()[row][col] === Gameboard.MARKER_P1) {
                 para.textContent = P1_TEXT_REPR;
+                para.classList.add("player-1");
             }
             else if (Gameboard.getBoard()[row][col] === Gameboard.MARKER_P2) {
                 para.textContent = P2_TEXT_REPR;
+                para.classList.add("player-2");
             }
             else {
                 para.textContent = "";
@@ -342,7 +344,7 @@ const GUIHandler = (function () {
         }
     }
 
-    const initializeButton = () => {
+    const createResetButton = () => {
         const resetButton = document.querySelector("#reset");
 
         resetButton.addEventListener("click", (e) => {
@@ -352,7 +354,17 @@ const GUIHandler = (function () {
 
             const pWinner = document.querySelector("p#winner");
             pWinner.textContent = "";
+
+            clearCellColors();
         });
+    }
+
+    const clearCellColors = () => {
+        for (const cell of container.children) {
+            const para = cell.querySelector("p");
+            para.classList.remove("player-1");
+            para.classList.remove("player-2");
+        }
     }
 
     const showResetButton = (doShow) => {
@@ -363,8 +375,10 @@ const GUIHandler = (function () {
     return {
         initialize,
         createGrid,
-        initializeButton,
+        createResetButton,
     }
 })();
 
-GUIHandler.initialize();
+// GUIHandler.initialize();
+GUIHandler.createGrid();
+GUIHandler.createResetButton();
