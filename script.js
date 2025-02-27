@@ -73,12 +73,10 @@ const GameController = (function () {
                     
                 }
                 else {
-                    hasFreeSpace()
-                    ? null
-                    : (() => {
+                    if(hasFreeSpace()) {
                         status = ST_HASTIE;
                         addScore();
-                    }) ();
+                    }
 
                     switchMarker();
                 }
@@ -180,8 +178,6 @@ const GameController = (function () {
     const placeMarker = (row, col) => {
         if(Gameboard.getBoard()[row][col] === Gameboard.AIR) {
             Gameboard.updateBoard(currentMarker, row, col);
-            // Gameboard.printBoard();
-
             return true;
         }
         else {
