@@ -73,7 +73,7 @@ const GameController = (function () {
                     
                 }
                 else {
-                    if(hasFreeSpace()) {
+                    if(!hasFreeSpace()) {
                         status = ST_HASTIE;
                         addScore();
                     }
