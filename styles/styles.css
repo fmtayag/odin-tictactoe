@@ -6,7 +6,7 @@
     --accent-2: #41c0ee;
     --color-1: gray;
     --color-2: rgb(232, 171, 16);
-    --color-3: rgb(255, 72, 40);
+    --color-3: rgb(255, 40, 90);
 
     --text-primary: white;
     --border-radius: 24px;
@@ -63,7 +63,7 @@ body {
 }
 
 .padding-sm {
-    padding: 0.5rem;
+    padding: 0.35rem;
 }
 
 .center-items {
@@ -75,4 +75,20 @@ body {
 .fit-content {
     width: fit-content;
     height: fit-content;
+}
+
+.inline {
+    display: inline;
+}
+
+.align-middle {
+    vertical-align: middle;
+}
+
+.small-font {
+    font-size: 16px;
+}
+
+.margin-right-sm {
+    margin-right: 0.5em;
 }
