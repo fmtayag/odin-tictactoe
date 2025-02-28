@@ -74,9 +74,8 @@
 }
 
 #top {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    display: flex;
+    justify-content: space-between;
     margin: 1rem;
     position: relative;
 
