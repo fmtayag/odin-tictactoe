@@ -203,6 +203,12 @@ const GameController = (function () {
         Gameboard.resetBoard();
     }
 
+    const resetScores = () => {
+        scores["p1"] = 0;
+        scores["p2"] = 0;
+        scores["ties"] = 0;
+    }
+
     const getScore = (query) => {
         return scores[query];
     }
@@ -221,6 +227,7 @@ const GameController = (function () {
         getWinner,
         getScore,
         reset,
+        resetScores,
         ST_PLAY,
         ST_HASTIE,
         ST_HASWINNER,
@@ -259,9 +266,6 @@ const GUIHandler = (function () {
                 createGrid();
                 createResetButton();
             }
-            else {
-                // TODO
-            }
             
             e.preventDefault();
         });
@@ -272,6 +276,10 @@ const GUIHandler = (function () {
             const gui = document.querySelector("#game");
             startContainer.classList.remove("hidden");
             gui.classList.add("hidden");
+
+            reset();
+            GameController.resetScores();
+            updateScores();
         });
     }   
 
@@ -361,18 +369,22 @@ const GUIHandler = (function () {
         }
     }
 
+    const reset = () => {
+        GameController.reset();
+        reflectGrid();
+        showResetButton(false);
+
+        const winner = document.querySelector("#winner");
+        winner.textContent = "";
+
+        clearCellColors();
+    }
+
     const createResetButton = () => {
         const resetButton = document.querySelector("#play-again");
 
         resetButton.addEventListener("click", (e) => {
-            GameController.reset();
-            reflectGrid();
-            showResetButton(false);
-
-            const winner = document.querySelector("#winner");
-            winner.textContent = "";
-
-            clearCellColors();
+            reset();
         });
     }
 
