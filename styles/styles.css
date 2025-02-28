@@ -42,3 +42,31 @@ body {
 .hidden-vis-only {
     visibility: hidden;
 }
+
+button.normal {
+    border: 0;
+    border-radius: var(--border-radius);
+    background-color: var(--color-2);
+    color: white;
+    font-weight: bold;
+    width: 100px;
+    justify-self: center;
+
+    transform: scale(1);
+    transition: transform 0.2s;
+}
+
+button.normal:hover {
+    cursor: pointer;
+    transform: scale(0.98);
+}
+
+.padding-sm {
+    padding: 0.5rem;
+}
+
+.center-items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
