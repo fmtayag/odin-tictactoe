@@ -346,7 +346,7 @@ const GUIHandler = (function () {
     }
 
     const createResetButton = () => {
-        const resetButton = document.querySelector("#reset");
+        const resetButton = document.querySelector("#play-again");
 
         resetButton.addEventListener("click", (e) => {
             GameController.reset();
@@ -369,7 +369,7 @@ const GUIHandler = (function () {
     }
 
     const showResetButton = (doShow) => {
-        const resetButton = document.querySelector("#reset");
+        const resetButton = document.querySelector("#play-again");
         doShow ? resetButton.classList.remove("hidden-vis-only") : resetButton.classList.add("hidden-vis-only");
     }
 
