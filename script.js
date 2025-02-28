@@ -231,7 +231,8 @@ const GUIHandler = (function () {
     const P1_TEXT_REPR = "close"; // Based on Google Material Icons
     const P2_TEXT_REPR = "circle";
     const container = document.querySelector("#board");
-
+    
+    let alreadyInit = false;
     let p1Name = null; 
     let p2Name = null;
 
@@ -253,9 +254,24 @@ const GUIHandler = (function () {
             startContainer.classList.add("hidden");
             gui.classList.remove("hidden");
 
-            createGrid();
-            createResetButton();
+            if(!alreadyInit) {
+                alreadyInit = true;
+                createGrid();
+                createResetButton();
+            }
+            else {
+                // TODO
+            }
+            
             e.preventDefault();
+        });
+
+        const resetBtn = document.querySelector("#reset");
+        resetBtn.addEventListener("click", (e) => {
+            const startContainer = document.querySelector("#start");
+            const gui = document.querySelector("#game");
+            startContainer.classList.remove("hidden");
+            gui.classList.add("hidden");
         });
     }   
 
@@ -293,7 +309,7 @@ const GUIHandler = (function () {
     }
 
     const createGrid = () => {
-
+        
         for (let r = 0; r < Gameboard.ROWS; r++) {
             for (let c = 0; c < Gameboard.COLUMNS; c++) {
                 const cell = document.createElement("div");
