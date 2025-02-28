@@ -272,6 +272,11 @@ const GUIHandler = (function () {
 
         const resetBtn = document.querySelector("#reset");
         resetBtn.addEventListener("click", (e) => {
+            const textNameP1 = document.querySelector("#p1_name"); 
+            const textNameP2 = document.querySelector("#p2_name");
+            textNameP1.value = "";
+            textNameP2.value = "";
+
             const startContainer = document.querySelector("#start");
             const gui = document.querySelector("#game");
             startContainer.classList.remove("hidden");
