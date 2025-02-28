@@ -87,3 +87,7 @@
     }
     
 }
+
+.color-3 {
+    background-color: var(--color-3);
+}
