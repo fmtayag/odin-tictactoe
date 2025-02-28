@@ -96,6 +96,6 @@ body {
     margin-bottom: 2rem;
 }
 
-.color-1 {
-    background-color: var(--color-1);
+.foreground-color {
+    background-color: var(--foreground-color);
 }
