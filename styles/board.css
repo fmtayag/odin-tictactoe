@@ -48,7 +48,7 @@
 .cell.highlight {
     background-color: var(--color-2);
     border-bottom-color: var(--color-3);
-    animation: pop 0.2s;
+    animation: pop 0.3s ease-in;
 
     & p {
         color: var(--text-primary);
