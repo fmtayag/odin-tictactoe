@@ -48,10 +48,17 @@
 .cell.highlight {
     background-color: var(--color-2);
     border-bottom-color: var(--color-3);
+    animation: pop 0.2s;
 
     & p {
         color: var(--text-primary);
     }
+}
+
+@keyframes pop {
+    0%   {transform: scale(100%);}
+    50%  {transform: scale(120%);}
+    100% {transform: scale(100%);}
 }
 
 #scoreboard {
