@@ -53,6 +53,7 @@ const GameController = (function () {
     const ST_HASWINNER = "has winner";
     let status = ST_PLAY;
     let winner = null;
+    let winningCells = [];
 
     let scores = {
         "p1": 0,
@@ -91,6 +92,7 @@ const GameController = (function () {
             for (let r = 0; r < Gameboard.ROWS; r++) {
                 if (board[r][c] === currentMarker) {
                     matches++;
+                    winningCells.push([r, c]);
                 }
                 else {
                     break;
@@ -108,6 +110,7 @@ const GameController = (function () {
             for (let c = 0; c < Gameboard.COLUMNS; c++) {
                 if (board[r][c] === currentMarker) {
                     matches++;
+                    winningCells.push([r, c]);
                 }
                 else {
                     break;
@@ -124,8 +127,9 @@ const GameController = (function () {
         let pointer = 0;
         let matches = 0;
         while (pointer < Gameboard.SIZE) {
-            if (board[pointer][pointer] === currentMarker)
+            if (board[pointer][pointer] === currentMarker){
                 matches++;
+            }
             else
                 break;
 
@@ -142,8 +146,9 @@ const GameController = (function () {
         while (pointer < Gameboard.SIZE) {
             const col = (Gameboard.SIZE - 1) - pointer;
 
-            if (board[pointer][col] === currentMarker)
+            if (board[pointer][col] === currentMarker) {
                 matches++;
+            }
             else
                 break;
 
@@ -231,6 +236,7 @@ const GameController = (function () {
         ST_PLAY,
         ST_HASTIE,
         ST_HASWINNER,
+        winningCells,
     }
 })();
 
