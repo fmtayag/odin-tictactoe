@@ -129,6 +129,7 @@ const GameController = (function () {
         while (pointer < Gameboard.SIZE) {
             if (board[pointer][pointer] === currentMarker){
                 matches++;
+                winningCells.push([pointer, col]);
             }
             else
                 break;
@@ -148,6 +149,7 @@ const GameController = (function () {
 
             if (board[pointer][col] === currentMarker) {
                 matches++;
+                winningCells.push([pointer, col]);
             }
             else
                 break;
