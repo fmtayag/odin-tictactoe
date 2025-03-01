@@ -71,7 +71,6 @@ const GameController = (function () {
                     status = ST_HASWINNER;
                     winner = currentMarker;
                     addScore();
-                    console.log(winningCells);
                 }
                 else {
                     if (!hasFreeSpace()) {
@@ -215,6 +214,7 @@ const GameController = (function () {
         status = ST_PLAY;
         currentMarker = Gameboard.MARKER_P1;
         Gameboard.resetBoard();
+        clearWinningCells();
     }
 
     const resetScores = () => {
@@ -235,17 +235,25 @@ const GameController = (function () {
         return winner;
     }
 
+    const getWinningCells = () => {
+        return winningCells;
+    }
+
+    const clearWinningCells = () => {
+        winningCells = [];
+    }
+
     return {
         play,
         getStatus,
         getWinner,
         getScore,
+        getWinningCells,
         reset,
         resetScores,
         ST_PLAY,
         ST_HASTIE,
         ST_HASWINNER,
-        winningCells,
     }
 })();
 
@@ -321,9 +329,22 @@ const GUIHandler = (function () {
                 const winningPlayer = GameController.getWinner() === Gameboard.MARKER_P1 ? p1Name : p2Name;
                 winnerText.textContent = `${winningPlayer} won!`;
                 updateScores();
+                displayWinningCells();
                 break;
         }
 
+    }
+
+    const displayWinningCells = () => {
+        let winningCells = GameController.getWinningCells();
+        for(const cell of winningCells) {
+            const row = cell[0];
+            const col = cell[1];
+
+            const element = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+            element.classList.add("highlight");
+        }
+        console.log(winningCells);
     }
 
     const updateScores = () => {
@@ -413,6 +434,7 @@ const GUIHandler = (function () {
             const para = cell.querySelector("p");
             para.classList.remove("player-1");
             para.classList.remove("player-2");
+            cell.classList.remove("highlight");
         }
     }
 

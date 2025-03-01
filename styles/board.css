@@ -45,6 +45,15 @@
     
 }
 
+.cell.highlight {
+    background-color: var(--color-2);
+    border-bottom-color: var(--color-3);
+
+    & p {
+        color: var(--text-primary);
+    }
+}
+
 #scoreboard {
     margin: 1rem;
     display: grid;
