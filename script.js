@@ -71,7 +71,7 @@ const GameController = (function () {
                     status = ST_HASWINNER;
                     winner = currentMarker;
                     addScore();
-
+                    console.log(winningCells);
                 }
                 else {
                     if (!hasFreeSpace()) {
@@ -95,6 +95,7 @@ const GameController = (function () {
                     winningCells.push([r, c]);
                 }
                 else {
+                    winningCells = [];
                     break;
                 }
             }
@@ -113,6 +114,7 @@ const GameController = (function () {
                     winningCells.push([r, c]);
                 }
                 else {
+                    winningCells = [];
                     break;
                 }
             }
@@ -129,10 +131,12 @@ const GameController = (function () {
         while (pointer < Gameboard.SIZE) {
             if (board[pointer][pointer] === currentMarker){
                 matches++;
-                winningCells.push([pointer, col]);
+                winningCells.push([pointer, pointer]);
             }
-            else
+            else {
+                winningCells = [];
                 break;
+            }
 
             pointer++;
         }
@@ -152,7 +156,10 @@ const GameController = (function () {
                 winningCells.push([pointer, col]);
             }
             else
+            {
+                winningCells = [];
                 break;
+            }
 
             pointer++;
         }
